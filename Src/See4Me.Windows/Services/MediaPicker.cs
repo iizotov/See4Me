@@ -15,8 +15,8 @@ namespace See4Me.Services
         {
             var captureUI = new CameraCaptureUI();
             captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
-            captureUI.PhotoSettings.AllowCropping = true;
-            captureUI.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.MediumXga; ;
+            captureUI.PhotoSettings.AllowCropping = false;
+            captureUI.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.HighestAvailable;
 
             var photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
 

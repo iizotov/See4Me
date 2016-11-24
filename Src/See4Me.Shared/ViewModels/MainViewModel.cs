@@ -332,6 +332,9 @@ namespace See4Me.ViewModels
         }
 
         private string GetNormalizedMessage(string message)
-            => message.Replace(Constants.SentenceEnd, ". ").TrimEnd('.').Trim().Replace("  ", " ").Replace(" .", ".").Replace("..", ".");
+        {
+            //return message;
+            return message.Replace(Constants.SentenceEnd, ". ").TrimEnd('.').Trim().Replace("  ", " ").Replace(" .", ".").Replace("..", ".");
+        }
     }
 }

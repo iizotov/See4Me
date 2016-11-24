@@ -5,6 +5,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.IO;
 using See4Me.Extensions;
+using Windows.UI.Popups;
+using System;
 
 namespace See4Me.Views
 {

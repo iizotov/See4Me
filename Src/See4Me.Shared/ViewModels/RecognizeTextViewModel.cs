@@ -14,6 +14,8 @@ using System.IO;
 using System.Text;
 using System.Net;
 using See4Me.Engine;
+using Windows.UI.Popups;
+using System.Text.RegularExpressions;
 
 namespace See4Me.ViewModels
 {
@@ -112,7 +114,35 @@ namespace See4Me.ViewModels
 
             // Shows the result.
             Message = this.GetNormalizedMessage(recognizeText);
+            string AlertMessage = "";
             IsBusy = false;
+            if (Message.ToLower().Contains("brand"))
+            {
+                Regex r = new Regex(@"^[a-zA-Z\s]{3,}$");
+                using (StringReader reader = new StringReader(Message))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        if (r.Match(line).Success && line.ToLower().Trim() != "brand" && line.ToLower().Trim() != "size" && line.ToLower().Trim() != "pack" && line.ToLower().Trim() != "carton" && line.Trim() != "")
+                        {
+                            AlertMessage = AlertMessage + line.Trim() + ";";
+                        }
+                    }
+                }
+
+                var Brands = AlertMessage.Split(';').Distinct();
+                AlertMessage = "";
+                foreach (string brand in Brands)
+                {
+                    AlertMessage = AlertMessage + brand + "\n"; 
+                }
+
+                MessageDialog dialog = new MessageDialog(AlertMessage);
+                dialog.Title = "Detected Brands";
+                dialog.Commands.Add(new UICommand { Label = "Ok", Id = 0 });
+                await dialog.ShowAsync();
+            }
         }
 
         private string GetNormalizedMessage(string message) => message;
